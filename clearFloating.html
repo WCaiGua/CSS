@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .topDiv {
+            width: 500px;
+            border: 2px solid black;
+        }
+
+
+        /*
+.textDiv告诉浏览器，我的左边不允许有浮动的元素存在，请清除掉我左边的浮动元素。
+然而，因为浮动元素（.floatDiv）位置已经确定，浏览器在计算.textDiv的位置时.
+为满足其需求，将.textDiv渲染在浮动元素下方，保证了.textDiv左边没有浮动元素。
+同时可以看出，父元素的高度也被撑起来了，其兄弟元素的渲染也不再受到浮动的影响，
+这是因为.textDiv仍然在文档流中，它必须在父元素的边界内，父元素只有增加其高度才能达到此目的
+*/
+        .floatDiv {
+            width: 100px;
+            height: 100px;
+            border: 2px dotted orange;
+            color: orange;
+            margin: 4px;
+            float: left;
+        }
+
+        .bottomDiv {
+            width: 500px;
+            height: 100px;
+            margin: 5px 0;
+            border: 2px dotted orangered;
+        }
+
+        .textDiv {
+            color: green;
+            border: 2px solid green;
+        }
+
+        .clear-left {
+            clear: left;
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .overflow {
+            overflow: auto;
+        }
+
+        .flow-root {
+            display: flow-root;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 利用clear样式 -->
+    <div class="topDiv">
+        <div class="floatDiv clear-left">float left</div>
+        <div class="textDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+            dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff
+        </div>
+    </div>
+    <div class="bottomDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+        dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff</div>
+    <!-- 父元素结束标签之前插入清除浮动的块级元素 -->
+    <div class="topDiv">
+        <div class="textDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+            dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff
+        </div>
+        <div class="floatDiv">float left</div>
+        <div class="blankDiv clear-left"></div>
+    </div>
+    <div class="bottomDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+        dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff</div>
+    <!-- 利用伪元素（clearfix） -->
+    <div class="topDiv clearfix">
+        <div class="textDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+            dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff
+        </div>
+        <div class="floatDiv">float left</div>
+    </div>
+    <div class="bottomDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+        dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff</div>
+    <!-- overflow 指定除visible(默认值)以外的值将创建一个新的块级格式化上下文.  -->
+    <div class="topDiv overflow">
+        <div class="textDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+            dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff
+        </div>
+        <div class="floatDiv">float left</div>
+    </div>
+    <div class="bottomDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+        dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff</div>
+    <!-- 使用display: flow-root包含块上会创建一个新的BFC 
+    BFC在计算高度的时候，内部浮动元素的高度也要计算在内。
+    也就是说，即使BFC区域内只有一个浮动元素，BFC的高度也不会发生塌缩，
+    高度是大于等于浮动元素的高度的。 只要能构建BFC就可以不过用overflow比较好-->
+    <div class="topDiv flow-root">
+        <div class="textDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+            dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff
+        </div>
+        <div class="floatDiv">float left</div>
+    </div>
+    <div class="bottomDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+        dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff</div>
+    <div class="topDiv flow-root">
+        <div class="textDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+            dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff
+        </div>
+        <div class="floatDiv">float left</div>
+    </div>
+    <div class="bottomDiv">abcdefgdfffffffffffffffffffffffffffffffffffffffffffffff
+        dffffffffffffffffffffffffdddfffffffffffffffffffffffddddffffff</div>
+
+</body>
+
+</html>
