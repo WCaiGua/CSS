@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body{
+            height:100%;
+        }
+        body {
+            background-color: #666666;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #in {
+            background-color: white;
+            width: 88%;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        hello,
+        button {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        button {
+            list-style: none;
+            border: none;
+            background-color: transparent;
+        }
+
+        .modal {
+            color: #c2c2c2;
+        }
+
+        .yes {
+            color: green;
+        }
+
+        .button-flex {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="out">
+    </div> -->
+    <div id="in">
+        <p class="hello">hello</p>
+        <p class="modal">this is a modal</p>
+        <div class="button-flex">
+            <button type="button" class="no">取消</button>
+            <button type="button" class="yes">确定</button>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+//一个div块级元素没有主动为其设置宽度和高度,浏览器会为其分配可使用的最大宽度(比如全屏宽度).
+//但是不负责分配高度,块级元素的高度是由子元素堆砌撑起来的.那么，html和body标签的高度也都是由子级元素堆砌撑起来的.
+//还有,元素高度百分比需要向上遍历父标签要找到一个定值高度才能起作用.如果中途有个height为auto或是没有设置height属性,则高度百分比不起作用.
+//此时的情况是父元素高度依赖子元素堆砌撑高,而子元素依赖父元素的定高起作用,互相依赖,却都无法依赖,死循环了.
